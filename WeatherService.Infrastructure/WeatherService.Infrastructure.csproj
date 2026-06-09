@@ -33,8 +33,6 @@
       <Folder Include="Configurations\" />
       <Folder Include="DependencyInjection\" />
       <Folder Include="ExternalServices\" />
-      <Folder Include="Persistence\" />
-      <Folder Include="Repositories\" />
     </ItemGroup>
 
 </Project>
