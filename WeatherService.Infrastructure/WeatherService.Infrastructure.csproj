@@ -32,7 +32,6 @@
     <ItemGroup>
       <Folder Include="Configurations\" />
       <Folder Include="DependencyInjection\" />
-      <Folder Include="ExternalServices\" />
     </ItemGroup>
 
 </Project>
