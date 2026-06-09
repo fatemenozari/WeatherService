@@ -9,7 +9,7 @@ public sealed class OpenMeteoClient(HttpClient httpClient) : IWeatherApiClient
     {
         var response =
             await httpClient.GetAsync(
-                "",
+                string.Empty,
                 cancellationToken);
 
         response.EnsureSuccessStatusCode();

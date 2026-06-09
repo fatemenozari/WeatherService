@@ -4,7 +4,7 @@ using WeatherService.Domain.Entities;
 
 namespace WeatherService.Application.Services;
 
-public sealed class WeatherService(
+public sealed class WeatherOrchestratorService(
     IWeatherApiClient apiClient,
     IWeatherRepository repository)
 {

@@ -21,8 +21,4 @@
       <ProjectReference Include="..\WeatherService.Domain\WeatherService.Domain.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="DependencyInjection\" />
-    </ItemGroup>
-
 </Project>
