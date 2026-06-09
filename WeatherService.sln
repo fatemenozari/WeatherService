@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherService.Api", "WeatherService.Api\WeatherService.Api.csproj", "{F83F3766-4E04-4410-88B8-6BE75702C3EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherService.Domain", "WeatherService.Domain\WeatherService.Domain.csproj", "{83846342-ABC0-4EA5-9A64-68DC183C0641}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherService.Application", "WeatherService.Application\WeatherService.Application.csproj", "{FDE6BEA6-0AF8-4F97-980A-4E5661C3548C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherService.Infrastructure", "WeatherService.Infrastructure\WeatherService.Infrastructure.csproj", "{7731EB85-2A30-4325-8973-893E9BE30A91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherService.UnitTests", "WeatherService.UnitTests\WeatherService.UnitTests.csproj", "{83369F08-E51E-40B9-B930-78F126F4A713}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F83F3766-4E04-4410-88B8-6BE75702C3EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F83F3766-4E04-4410-88B8-6BE75702C3EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F83F3766-4E04-4410-88B8-6BE75702C3EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F83F3766-4E04-4410-88B8-6BE75702C3EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83846342-ABC0-4EA5-9A64-68DC183C0641}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83846342-ABC0-4EA5-9A64-68DC183C0641}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83846342-ABC0-4EA5-9A64-68DC183C0641}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83846342-ABC0-4EA5-9A64-68DC183C0641}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDE6BEA6-0AF8-4F97-980A-4E5661C3548C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDE6BEA6-0AF8-4F97-980A-4E5661C3548C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDE6BEA6-0AF8-4F97-980A-4E5661C3548C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDE6BEA6-0AF8-4F97-980A-4E5661C3548C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7731EB85-2A30-4325-8973-893E9BE30A91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7731EB85-2A30-4325-8973-893E9BE30A91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7731EB85-2A30-4325-8973-893E9BE30A91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7731EB85-2A30-4325-8973-893E9BE30A91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83369F08-E51E-40B9-B930-78F126F4A713}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83369F08-E51E-40B9-B930-78F126F4A713}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83369F08-E51E-40B9-B930-78F126F4A713}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83369F08-E51E-40B9-B930-78F126F4A713}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
