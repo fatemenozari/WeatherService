@@ -9,6 +9,14 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.16"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0" />
+        <PackageReference Include="Polly" Version="8.5.2" />
+        <PackageReference Include="Polly.Extensions.Http" Version="3.0.0" />
     </ItemGroup>
 
     <ItemGroup>
@@ -19,6 +27,14 @@
 
     <ItemGroup>
       <ProjectReference Include="..\WeatherService.Application\WeatherService.Application.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Configurations\" />
+      <Folder Include="DependencyInjection\" />
+      <Folder Include="ExternalServices\" />
+      <Folder Include="Persistence\" />
+      <Folder Include="Repositories\" />
     </ItemGroup>
 
 </Project>
