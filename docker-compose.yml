@@ -1,0 +1,29 @@
+services:
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: weather-sql
+
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "WeatherService123!"
+
+    ports:
+      - "1433:1433"
+
+  weather-api:
+    build:
+      context: .
+      dockerfile: WeatherService.Api/Dockerfile
+
+    container_name: weather-api
+
+    ports:
+      - "8080:8080"
+
+    environment:
+      ASPNETCORE_URLS: "http://+:8080"
+      ConnectionStrings__DefaultConnection: "Server=weather-sql;Database=WeatherDb;User Id=sa;Password=WeatherService123!;TrustServerCertificate=True"
+
+    depends_on:
+      - sqlserver
