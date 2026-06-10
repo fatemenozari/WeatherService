@@ -4,7 +4,7 @@ public sealed class WeatherRecord
 {
     public long Id { get; private set; }
 
-    public string RawResponse { get; private set; }
+    public string RawResponse { get; private set; } = string.Empty;
 
     public DateTime CreatedAtUtc { get; private set; }
 
