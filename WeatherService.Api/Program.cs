@@ -54,3 +54,7 @@ dbContext.Database.Migrate();
 app.MapHealthChecks("/health");
 
 app.Run();
+
+public partial class Program
+{
+}
