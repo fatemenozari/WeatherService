@@ -187,12 +187,11 @@ are logged for troubleshooting and monitoring.
 
 ## Future Improvements
 
-* Integration tests
-* Containerized database migrations
 * CI/CD pipeline
 * OpenTelemetry integration
 * Distributed caching
 * Multiple weather providers support
+* Metrics and monitoring dashboard
 
 ```
 ```
