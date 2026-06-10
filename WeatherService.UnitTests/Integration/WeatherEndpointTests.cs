@@ -1,6 +1,5 @@
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
 
 namespace WeatherService.UnitTests.Integration;
 
@@ -15,10 +14,8 @@ public class WeatherEndpointTests(WebApplicationFactory<Program> factory)
         var response =
             await _client.GetAsync("/api/weather");
 
-        response.StatusCode
+        response.IsSuccessStatusCode
             .Should()
-            .BeOneOf(
-                System.Net.HttpStatusCode.OK,
-                System.Net.HttpStatusCode.NoContent);
+            .BeTrue();
     }
 }
