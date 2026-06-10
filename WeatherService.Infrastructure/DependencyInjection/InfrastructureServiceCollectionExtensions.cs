@@ -1,9 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using WeatherService.Application.Interfaces;
-using WeatherService.Application.Models;
 using WeatherService.Infrastructure.ExternalServices;
 using WeatherService.Infrastructure.Persistence;
 using WeatherService.Infrastructure.Repositories;
@@ -29,19 +26,20 @@ public static class InfrastructureServiceCollectionExtensions
         services.AddScoped<IWeatherRepository, WeatherRepository>();
 
         services.AddHttpClient<IWeatherApiClient, OpenMeteoClient>(
-            (provider, client) =>
-            {
-                var options =
-                    provider.GetRequiredService<
-                        IOptions<WeatherApiOptions>>();
+                (provider, client) =>
+                {
+                    var options =
+                        provider.GetRequiredService<
+                            IOptions<WeatherApiOptions>>();
 
-                client.BaseAddress =
-                    new Uri(options.Value.Url);
+                    client.BaseAddress =
+                        new Uri(options.Value.Url);
 
-                client.Timeout =
-                    TimeSpan.FromSeconds(
-                        options.Value.TimeoutSeconds);
-            });
+                    client.Timeout =
+                        TimeSpan.FromSeconds(
+                            options.Value.TimeoutSeconds);
+                })
+            .AddStandardResilienceHandler();
 
         return services;
     }
