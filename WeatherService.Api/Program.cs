@@ -22,6 +22,12 @@ builder.Host.UseSerilog((context, loggerConfiguration) =>
         .WriteTo.Console();
 });
 
+builder.Services
+    .AddHealthChecks()
+    .AddSqlServer(
+        builder.Configuration
+            .GetConnectionString("DefaultConnection")!);
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -34,5 +40,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapControllers();
+
+app.MapHealthChecks("/health");
 
 app.Run();
