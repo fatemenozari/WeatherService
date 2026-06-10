@@ -9,6 +9,7 @@ public sealed class WeatherOrchestratorService(
     IWeatherApiClient apiClient,
     IWeatherRepository repository,
     ILogger<WeatherOrchestratorService> logger)
+    : IWeatherOrchestratorService
 {
     public async Task<WeatherResult> GetWeatherAsync(
         CancellationToken cancellationToken)

@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
-using WeatherService.Application.Services;
+using WeatherService.Application.Interfaces;
 
 namespace WeatherService.Api.Controllers;
 
 [ApiController]
 [Route("api/weather")]
-public class WeatherController(WeatherOrchestratorService weatherOrchestrator) : ControllerBase
+public class WeatherController(
+    IWeatherOrchestratorService weatherOrchestrator) : ControllerBase
 {
     [HttpGet]
     public async Task<IActionResult> Get(
