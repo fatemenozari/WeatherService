@@ -1,5 +1,3 @@
-namespace WeatherService.Application.Models;
-
 public sealed class WeatherApiOptions
 {
     public const string SectionName = "WeatherApi";
