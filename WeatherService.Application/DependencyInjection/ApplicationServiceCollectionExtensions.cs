@@ -1,3 +1,4 @@
+using Microsoft.Extensions.DependencyInjection;
 using WeatherService.Application.Services;
 
 namespace WeatherService.Application.DependencyInjection;

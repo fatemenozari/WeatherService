@@ -1,6 +1,8 @@
 using WeatherService.Application.DependencyInjection;
 using WeatherService.Infrastructure.DependencyInjection;
 using Serilog;
+using Microsoft.EntityFrameworkCore;
+using WeatherService.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +42,14 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapControllers();
+
+using var scope = app.Services.CreateScope();
+
+var dbContext =
+    scope.ServiceProvider
+        .GetRequiredService<WeatherDbContext>();
+
+dbContext.Database.Migrate();
 
 app.MapHealthChecks("/health");
 
