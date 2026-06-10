@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
 
@@ -9,6 +9,11 @@
         <IsTestProject>true</IsTestProject>
     </PropertyGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\WeatherService.Application\WeatherService.Application.csproj" />
+        <ProjectReference Include="..\WeatherService.Domain\WeatherService.Domain.csproj" />
+    </ItemGroup>
+    
     <ItemGroup>
         <PackageReference Include="coverlet.collector" Version="6.0.0"/>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0"/>
@@ -30,7 +35,6 @@
     <ItemGroup>
       <Folder Include="Helpers\" />
       <Folder Include="Repositories\" />
-      <Folder Include="Services\" />
     </ItemGroup>
 
 </Project>
