@@ -1,7 +1,7 @@
+using Microsoft.Extensions.Logging;
 using WeatherService.Application.Interfaces;
 using WeatherService.Application.Models;
 using WeatherService.Domain.Entities;
-using Microsoft.Extensions.Logging;
 
 namespace WeatherService.Application.Services;
 
@@ -27,7 +27,9 @@ public sealed class WeatherOrchestratorService(
                     cancellationToken);
 
                 logger.LogInformation(
-                    "Weather response stored successfully");
+                    "{Service}.{Method}: Weather response stored successfully",
+                    nameof(WeatherOrchestratorService),
+                    nameof(GetWeatherAsync));
 
                 return new WeatherResult
                 {
@@ -35,14 +37,28 @@ public sealed class WeatherOrchestratorService(
                     IsFromCache = false
                 };
             }
+
+            logger.LogWarning(
+                "{Service}.{Method}: Empty response received from weather provider",
+                nameof(WeatherOrchestratorService),
+                nameof(GetWeatherAsync));
         }
         catch (Exception ex)
         {
             logger.LogError(
                 ex,
-                "Failed to retrieve weather data from external provider");
+                "{Service}.{Method}: Failed to retrieve weather data from external provider",
+                nameof(WeatherOrchestratorService),
+                nameof(GetWeatherAsync));
         }
 
+        return await GetCachedWeatherAsync(
+            cancellationToken);
+    }
+
+    private async Task<WeatherResult> GetCachedWeatherAsync(
+        CancellationToken cancellationToken)
+    {
         try
         {
             var latest =
@@ -52,7 +68,9 @@ public sealed class WeatherOrchestratorService(
             if (latest is not null)
             {
                 logger.LogWarning(
-                    "Returning cached weather data");
+                    "{Service}.{Method}: Returning cached weather data",
+                    nameof(WeatherOrchestratorService),
+                    nameof(GetCachedWeatherAsync));
 
                 return new WeatherResult
                 {
@@ -62,7 +80,9 @@ public sealed class WeatherOrchestratorService(
             }
 
             logger.LogWarning(
-                "No cached weather data found");
+                "{Service}.{Method}: No cached weather data found",
+                nameof(WeatherOrchestratorService),
+                nameof(GetCachedWeatherAsync));
 
             return new WeatherResult
             {
@@ -74,7 +94,9 @@ public sealed class WeatherOrchestratorService(
         {
             logger.LogError(
                 ex,
-                "Failed to retrieve cached weather data");
+                "{Service}.{Method}: Failed to retrieve cached weather data",
+                nameof(WeatherOrchestratorService),
+                nameof(GetCachedWeatherAsync));
 
             return new WeatherResult
             {
