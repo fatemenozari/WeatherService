@@ -1,12 +1,14 @@
 using WeatherService.Application.Interfaces;
 using WeatherService.Application.Models;
 using WeatherService.Domain.Entities;
+using Microsoft.Extensions.Logging;
 
 namespace WeatherService.Application.Services;
 
 public sealed class WeatherOrchestratorService(
     IWeatherApiClient apiClient,
-    IWeatherRepository repository)
+    IWeatherRepository repository,
+    ILogger<WeatherOrchestratorService> logger)
 {
     public async Task<WeatherResult> GetWeatherAsync(
         CancellationToken cancellationToken)
@@ -30,8 +32,12 @@ public sealed class WeatherOrchestratorService(
                 };
             }
         }
-        catch
+        catch (Exception ex)
         {
+            logger.LogError(
+                ex,
+                "{MethodName} failed to retrieve weather from external provider.",
+                nameof(GetWeatherAsync));
         }
 
         try
@@ -46,8 +52,13 @@ public sealed class WeatherOrchestratorService(
                 IsFromCache = true
             };
         }
-        catch
+        catch (Exception ex)
         {
+            logger.LogError(
+                ex,
+                "{MethodName} failed to retrieve weather from database.",
+                nameof(GetWeatherAsync));
+            
             return new WeatherResult
             {
                 RawJson = null,
