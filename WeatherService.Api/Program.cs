@@ -43,15 +43,25 @@ app.UseHttpsRedirection();
 
 app.MapControllers();
 
+app.MapHealthChecks("/health");
+
 using var scope = app.Services.CreateScope();
 
-var dbContext =
-    scope.ServiceProvider
-        .GetRequiredService<WeatherDbContext>();
+try
+{
+    var dbContext =
+        scope.ServiceProvider
+            .GetRequiredService<
+                WeatherDbContext>();
 
-dbContext.Database.Migrate();
-
-app.MapHealthChecks("/health");
+    dbContext.Database.Migrate();
+}
+catch (Exception ex)
+{
+    Log.Error(
+        ex,
+        "Database migration failed");
+}
 
 app.Run();
 

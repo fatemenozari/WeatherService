@@ -20,23 +20,26 @@ public sealed class WeatherOrchestratorService(
                 await apiClient.GetWeatherAsync(
                     cancellationToken);
 
-            if (!string.IsNullOrWhiteSpace(response))
-            {
-                await repository.AddAsync(
-                    new WeatherRecord(response),
-                    cancellationToken);
-
-                logger.LogInformation(
-                    "{Service}.{Method}: Weather response stored successfully",
-                    nameof(WeatherOrchestratorService),
-                    nameof(GetWeatherAsync));
-
-                return new WeatherResult
-                {
-                    RawJson = response,
-                    IsFromCache = false
-                };
-            }
+           if (!string.IsNullOrWhiteSpace(response))
+           {
+               try
+               {
+                   await repository.AddAsync(
+                       new WeatherRecord(response),
+                       cancellationToken);
+           
+                   logger.LogInformation("Weather response stored successfully");
+               }
+               catch (Exception ex)
+               {
+                   logger.LogError(ex,"Failed to store weather response");
+               }
+           
+               return new WeatherResult
+               {
+                   RawJson = response,
+               };
+           }
 
             logger.LogWarning(
                 "{Service}.{Method}: Empty response received from weather provider",
@@ -75,7 +78,6 @@ public sealed class WeatherOrchestratorService(
                 return new WeatherResult
                 {
                     RawJson = latest.RawResponse,
-                    IsFromCache = true
                 };
             }
 
@@ -87,7 +89,6 @@ public sealed class WeatherOrchestratorService(
             return new WeatherResult
             {
                 RawJson = null,
-                IsFromCache = true
             };
         }
         catch (Exception ex)
@@ -101,7 +102,6 @@ public sealed class WeatherOrchestratorService(
             return new WeatherResult
             {
                 RawJson = null,
-                IsFromCache = true
             };
         }
     }

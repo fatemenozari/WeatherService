@@ -16,11 +16,8 @@ public class WeatherController(
             await weatherOrchestrator.GetWeatherAsync(
                 cancellationToken);
 
-        if (result.RawJson is null)
-            return Ok(null);
-
         return Content(
-            result.RawJson,
+            result.RawJson ?? "null",
             "application/json");
     }
 }

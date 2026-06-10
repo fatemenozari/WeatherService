@@ -41,7 +41,11 @@ public static class InfrastructureServiceCollectionExtensions
                         TimeSpan.FromSeconds(
                             options.Value.TimeoutSeconds);
                 })
-            .AddStandardResilienceHandler();
+            .AddStandardResilienceHandler(options =>
+            {
+                options.TotalRequestTimeout.Timeout =
+                    TimeSpan.FromSeconds(3);
+            });
 
         return services;
     }

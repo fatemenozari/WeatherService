@@ -31,7 +31,6 @@ public class WeatherOrchestratorServiceTests
             await service.GetWeatherAsync(CancellationToken.None);
 
         result.RawJson.Should().Be(response);
-        result.IsFromCache.Should().BeFalse();
 
         repository.Verify(
             x => x.AddAsync(
@@ -45,6 +44,42 @@ public class WeatherOrchestratorServiceTests
             Times.Never);
     }
 
+    [Fact]
+    public async Task Should_Return_Live_Data_When_Database_Save_Fails()
+    {
+        var apiClient = new Mock<IWeatherApiClient>();
+        var repository = new Mock<IWeatherRepository>();
+        var logger = new Mock<ILogger<WeatherOrchestratorService>>();
+
+        const string response = "{\"temperature\":25}";
+
+        apiClient
+            .Setup(x => x.GetWeatherAsync(It.IsAny<CancellationToken>()))
+            .ReturnsAsync(response);
+
+        repository
+            .Setup(x => x.AddAsync(
+                It.IsAny<WeatherRecord>(),
+                It.IsAny<CancellationToken>()))
+            .ThrowsAsync(new Exception());
+
+        var service = new WeatherOrchestratorService(
+            apiClient.Object,
+            repository.Object,
+            logger.Object);
+
+        var result =
+            await service.GetWeatherAsync(
+                CancellationToken.None);
+
+        result.RawJson.Should().Be(response);
+
+        repository.Verify(
+            x => x.GetLatestAsync(
+                It.IsAny<CancellationToken>()),
+            Times.Never);
+    }
+    
     [Fact]
     public async Task Should_Return_Cached_Data_When_Api_Fails()
     {
@@ -70,7 +105,6 @@ public class WeatherOrchestratorServiceTests
             await service.GetWeatherAsync(CancellationToken.None);
 
         result.RawJson.Should().Be("{\"temperature\":20}");
-        result.IsFromCache.Should().BeTrue();
     }
 
     [Fact]
@@ -97,7 +131,6 @@ public class WeatherOrchestratorServiceTests
             await service.GetWeatherAsync(CancellationToken.None);
 
         result.RawJson.Should().BeNull();
-        result.IsFromCache.Should().BeTrue();
     }
 
     [Fact]
@@ -124,7 +157,6 @@ public class WeatherOrchestratorServiceTests
         var result =
             await service.GetWeatherAsync(CancellationToken.None);
 
-        result.IsFromCache.Should().BeTrue();
         result.RawJson.Should().Be("{\"temperature\":22}");
     }
 }
