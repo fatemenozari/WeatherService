@@ -25,6 +25,9 @@ public sealed class WeatherOrchestratorService(
                     new WeatherRecord(response),
                     cancellationToken);
 
+                logger.LogInformation(
+                    "Weather response stored successfully");
+
                 return new WeatherResult
                 {
                     RawJson = response,
@@ -36,8 +39,7 @@ public sealed class WeatherOrchestratorService(
         {
             logger.LogError(
                 ex,
-                "{MethodName} failed to retrieve weather from external provider.",
-                nameof(GetWeatherAsync));
+                "Failed to retrieve weather data from external provider");
         }
 
         try
@@ -46,9 +48,24 @@ public sealed class WeatherOrchestratorService(
                 await repository.GetLatestAsync(
                     cancellationToken);
 
+            if (latest is not null)
+            {
+                logger.LogWarning(
+                    "Returning cached weather data");
+
+                return new WeatherResult
+                {
+                    RawJson = latest.RawResponse,
+                    IsFromCache = true
+                };
+            }
+
+            logger.LogWarning(
+                "No cached weather data found");
+
             return new WeatherResult
             {
-                RawJson = latest?.RawResponse,
+                RawJson = null,
                 IsFromCache = true
             };
         }
@@ -56,9 +73,8 @@ public sealed class WeatherOrchestratorService(
         {
             logger.LogError(
                 ex,
-                "{MethodName} failed to retrieve weather from database.",
-                nameof(GetWeatherAsync));
-            
+                "Failed to retrieve cached weather data");
+
             return new WeatherResult
             {
                 RawJson = null,
